@@ -21,12 +21,21 @@
   },
   "devDependencies": {
     "gulp-format-md": "^0.1.5",
-    "mocha": "^2.3.4",
-    "read-file": "^0.2.0"
+    "mocha": "*"
   },
+  "keywords": [
+    "format",
+    "markdown",
+    "md",
+    "parse"
+  ],
   "verb": {
     "related": {
-      "list": []
+      "list": [
+        "gulp-format-md",
+        "markdown-utils",
+        "remarkable"
+      ]
     },
     "plugins": [
       "gulp-format-md"
