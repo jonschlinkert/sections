@@ -1,0 +1,36 @@
+{
+  "name": "sections",
+  "description": "Manipulate sections in a string of markdown.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/sections",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/sections",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/sections/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "gulp-format-md": "^0.1.5",
+    "mocha": "^2.3.4",
+    "read-file": "^0.2.0"
+  },
+  "verb": {
+    "related": {
+      "list": []
+    },
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "layout": "default"
+  }
+}
