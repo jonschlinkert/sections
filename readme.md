@@ -54,13 +54,13 @@ Format sections. By default, if no filter function is passed, this:
 
 ## Generate docs
 
-Generate readme and API documentation with [verb][]:
+Generate readme and API documentation with [verb](https://github.com/verbose/verb):
 
 ```sh
 $ npm i -d && npm run docs
 ```
 
-Or, if [verb][] is installed globally:
+Or, if [verb](https://github.com/verbose/verb) is installed globally:
 
 ```sh
 $ verb

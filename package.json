@@ -30,6 +30,14 @@
     "parse"
   ],
   "verb": {
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
     "related": {
       "list": [
         "gulp-format-md",
@@ -37,9 +45,8 @@
         "remarkable"
       ]
     },
-    "plugins": [
-      "gulp-format-md"
-    ],
-    "layout": "default"
+    "reflinks": [
+      "verb"
+    ]
   }
 }
