@@ -1,7 +1,7 @@
 {
   "name": "sections",
   "description": "Manipulate sections in a string of markdown.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/jonschlinkert/sections",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/sections",
