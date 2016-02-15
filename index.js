@@ -26,7 +26,7 @@ exports.parse = function parseSections(str, fn) {
   }
 
   var sections = str.split(/(?=\n^#)/gm);
-  var res = { sections: [], result: '' };
+  var res = { sections: [], result: '', keys: [] };
   var len = sections.length;
   var idx = -1;
   var pos = 0;
@@ -34,6 +34,7 @@ exports.parse = function parseSections(str, fn) {
   while (++idx < len) {
     var content = sections[idx];
     var section = new Section(content, idx, pos += content.length);
+    res.keys.push(section.title);
     res.sections.push(section);
 
     if (typeof fn === 'function') {
@@ -111,7 +112,9 @@ function Section(str, idx, pos) {
   this.level = getLevel(this);
   this.title = getTitle(this);
   this.body = str.slice(this.heading.length).trim();
-  this.body = trimBold(this.body);
+  this.body = condenseBold(this.body);
+
+  this.body = this.body.replace(/\n{2,}/g, '\n\n');
 
   if (hasBadge(idx, this.title)) {
     badge(this);
@@ -122,7 +125,7 @@ function Section(str, idx, pos) {
  * Utils
  */
 
-function trimBold(str) {
+function condenseBold(str) {
   var re = /\s*([*]{2}(.*?)[*]{2})\n*/;
   var m = re.exec(str);
   if (!m) return str;
