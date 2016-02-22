@@ -1,7 +1,7 @@
 {
   "name": "sections",
-  "description": "Prepend, append or replace \"sections\" in a markdown string.",
-  "version": "0.1.2",
+  "description": "Manipulate sections in a markdown string. A 'section' is a block of content preceded by a valid markdown ATX heading.",
+  "version": "0.1.3",
   "homepage": "https://github.com/jonschlinkert/sections",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/sections",

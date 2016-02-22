@@ -1,6 +1,6 @@
 # sections [![NPM version](https://img.shields.io/npm/v/sections.svg)](https://www.npmjs.com/package/sections) [![Build Status](https://img.shields.io/travis/jonschlinkert/sections.svg)](https://travis-ci.org/jonschlinkert/sections)
 
-> Prepend, append or replace "sections" in a markdown string.
+> Manipulate sections in a markdown string. A 'section' is a block of content preceded by a valid markdown ATX heading.
 
 ## Install
 
