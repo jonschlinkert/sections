@@ -14,6 +14,14 @@
  * - `sections`: an array of markdown "sections", delimited by [ATX headings][atx],
  * - `result`: the cumulative result of whatever is returned by the (optional) function that is passed as the second argument.
  *
+ * Returns an object that looks [something like this](#example-object)
+ *
+ * ```js
+ * var fs = require('fs');
+ * var readme = fs.readFileSync('example/basic.md', 'utf8');
+ * var sections = require('sections');
+ * console.log(sections.parse(readme));
+ * ```
  * @param {String} `string`
  * @param {Function} `fn`
  * @return {Object}
@@ -26,7 +34,7 @@ exports.parse = function parseSections(str, fn) {
   }
 
   var sections = str.split(/(?=\n^#)/gm);
-  var res = { sections: [], result: '', keys: [] };
+  var res = { sections: [], result: '', headings: [] };
   var len = sections.length;
   var idx = -1;
   var pos = 0;
@@ -34,7 +42,7 @@ exports.parse = function parseSections(str, fn) {
   while (++idx < len) {
     var content = sections[idx];
     var section = new Section(content, idx, pos += content.length);
-    res.keys.push(section.title);
+    res.headings.push(section.title);
     res.sections.push(section);
 
     if (typeof fn === 'function') {
@@ -103,9 +111,9 @@ function filter(section, prev, next) {
  * Create a new markdown section at the given position.
  */
 
-function Section(str, idx, pos) {
+function Section(str, count, pos) {
   this.pos = pos;
-  this.idx = idx;
+  this.count = count;
   this.string = str;
   str = str.trim();
   this.heading = getHeading(str);
@@ -116,7 +124,7 @@ function Section(str, idx, pos) {
 
   this.body = this.body.replace(/\n{2,}/g, '\n\n');
 
-  if (hasBadge(idx, this.title)) {
+  if (hasBadge(count, this.title)) {
     badge(this);
   }
 }

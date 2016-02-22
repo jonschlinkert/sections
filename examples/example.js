@@ -1,0 +1,35 @@
+{ sections:
+   [ Section {
+       pos: 12,
+       count: 0,
+       string: '# sections \n',
+       heading: '# sections',
+       level: 1,
+       title: 'sections',
+       body: '' },
+     Section {
+       pos: 32,
+       count: 1,
+       string: '\n## Foo\nThis is foo\n',
+       heading: '## Foo',
+       level: 2,
+       title: 'Foo',
+       body: 'This is foo' },
+     Section {
+       pos: 52,
+       count: 2,
+       string: '\n## Bar\nThis is bar\n',
+       heading: '## Bar',
+       level: 2,
+       title: 'Bar',
+       body: 'This is bar' },
+     Section {
+       pos: 72,
+       count: 3,
+       string: '\n## Baz\nThis is baz\n',
+       heading: '## Baz',
+       level: 2,
+       title: 'Baz',
+       body: 'This is baz' } ],
+  result: '',
+  headings: [ 'sections', 'Foo', 'Bar', 'Baz' ] }
