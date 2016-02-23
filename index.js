@@ -7,6 +7,8 @@
 
 'use strict';
 
+var gfm = require('./gfm');
+
 /**
  * Parses sections in a `string` of markdown and returns an object
  * with two properties:
@@ -77,6 +79,9 @@ exports.format = function formatSections(str, fn) {
     fn = filter;
   }
 
+  var file = gfm.extract(str);
+  str = file.contents;
+
   var parsed = exports.parse(str);
   var len = parsed.sections.length;
   var idx = -1;
@@ -93,7 +98,9 @@ exports.format = function formatSections(str, fn) {
       res += val;
     }
   }
-  return res;
+
+  file.contents = res;
+  return gfm.restore(file);
 };
 
 /**

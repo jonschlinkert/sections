@@ -95,6 +95,12 @@ describe('sections', function() {
       assert(!/\n{3,}/.test(actual));
     });
 
+    it('should not format fenced code', function() {
+      var str = fixture('gfm.md');
+      var actual = sections.format(str);
+      assert(/sh\n#/.test(actual));
+    });
+
     it('should add newlines before tight headings', function() {
       var str = fixture('tight.md');
       assert(!/\n\n## Foo/.test(str));
