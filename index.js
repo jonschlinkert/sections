@@ -134,7 +134,7 @@ function Section(str, count, pos) {
  */
 
 function condenseBold(str) {
-  var re = /\s*([*]{2}(.*?)[*]{2})\n*/;
+  var re = /^([*]{2}(.*?)[*]{2})\n*/gm;
   var m = re.exec(str);
   if (!m) return str;
   return str.split(m[0]).join('\n' + emit(m[1]) + '\n');
