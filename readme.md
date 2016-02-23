@@ -20,7 +20,7 @@ var sections = require('sections');
 
 ## API
 
-### [.parse](index.js#L31)
+### [.parse](index.js#L33)
 
 Parses sections in a `string` of markdown and returns an object with two properties:
 
@@ -43,7 +43,7 @@ var sections = require('sections');
 console.log(sections.parse(readme));
 ```
 
-### [.format](index.js#L71)
+### [.format](index.js#L73)
 
 Format sections. By default, if no filter function is passed, this:
 
