@@ -11,7 +11,7 @@ exports.extract = function(str) {
   for (var i = 0; i < examples.length; i++) {
     var code = examples[i];
 
-    var key = ('__GFM_' + i + '__');
+    var key = ('@#GFM_' + i + '#@');
     code.key = key;
     examplesMap[key] = code;
     str = str.split(code.block).join(key);
@@ -26,7 +26,8 @@ exports.restore = function(file) {
   var map = file.examples;
   for (var key in map) {
     var val = map[key];
-    file.contents = file.contents.replace(val.key, val.block);
+    var re = new RegExp(key, 'g');
+    file.contents = file.contents.replace(re, val.block);
   }
   return file.contents;
 };
