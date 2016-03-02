@@ -1,7 +1,7 @@
 {
   "name": "sections",
   "description": "Manipulate sections in a markdown string. A 'section' is a block of content preceded by a valid markdown ATX heading.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "homepage": "https://github.com/jonschlinkert/sections",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/sections",
