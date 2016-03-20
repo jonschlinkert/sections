@@ -79,6 +79,7 @@ exports.format = function formatSections(str, fn) {
     fn = filter;
   }
 
+  var end = endingWs(str);
   var file = gfm.extract(str);
   str = file.contents;
 
@@ -100,7 +101,7 @@ exports.format = function formatSections(str, fn) {
   }
 
   file.contents = res;
-  return gfm.restore(file);
+  return gfm.restore(file).trim() + end;
 };
 
 /**
@@ -178,6 +179,11 @@ function badge(section) {
 
 function emit(str) {
   return '\n' + toString(str) + '\n';
+}
+
+function endingWs(str) {
+  var m = /(\s+)$/.exec(str) || [];
+  return m[1] || '';
 }
 
 function toString(str) {
