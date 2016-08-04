@@ -7,7 +7,8 @@
 
 'use strict';
 
-var gfm = require('./gfm');
+var define = require('define-property');
+var gfm = require('gfm-code-blocks');
 
 /**
  * Parses sections in a `string` of markdown and returns an object
@@ -80,7 +81,7 @@ exports.format = function formatSections(str, fn) {
   }
 
   var end = endingWs(str);
-  var file = gfm.extract(str);
+  var file = extractGfm(str);
   str = file.contents;
 
   var parsed = exports.parse(str);
@@ -101,7 +102,7 @@ exports.format = function formatSections(str, fn) {
   }
 
   file.contents = res;
-  return gfm.restore(file).trim() + end;
+  return restoreGfm(file).trim() + end;
 };
 
 /**
@@ -140,6 +141,35 @@ function Section(str, count, pos) {
 /**
  * Utils
  */
+
+function extractGfm(str) {
+  var file = { contents: str };
+  var examples = gfm(str);
+  var examplesMap = {};
+
+  for (var i = 0; i < examples.length; i++) {
+    var code = examples[i];
+
+    var key = ('@#GFM_' + i + '#@');
+    code.key = key;
+    examplesMap[key] = code;
+    str = str.split(code.block).join(key);
+  }
+
+  file.contents = str;
+  file.examples = examplesMap;
+  return file;
+};
+
+function restoreGfm(file) {
+  var map = file.examples;
+  for (var key in map) {
+    var val = map[key];
+    var re = new RegExp(key, 'g');
+    file.contents = file.contents.replace(re, val.block);
+  }
+  return file.contents;
+}
 
 function condenseBold(str) {
   var re = /^([*]{2}(.*?)[*]{2})(?=\n|$)/gm;
