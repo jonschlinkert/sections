@@ -26,8 +26,8 @@
     "gfm-code-blocks": "^0.3.0"
   },
   "devDependencies": {
-    "gulp-format-md": "^0.1.7",
-    "mocha": "^2.4.5"
+    "gulp-format-md": "^0.1.10",
+    "mocha": "^3.0.1"
   },
   "keywords": [
     "format",
