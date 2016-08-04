@@ -11,7 +11,8 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "gfm.js"
+    "LICENSE",
+    "README.md"
   ],
   "main": "index.js",
   "engines": {
@@ -19,6 +20,10 @@
   },
   "scripts": {
     "test": "mocha"
+  },
+  "dependencies": {
+    "define-property": "^0.2.5",
+    "gfm-code-blocks": "^0.3.0"
   },
   "devDependencies": {
     "gulp-format-md": "^0.1.7",
@@ -28,7 +33,8 @@
     "format",
     "markdown",
     "md",
-    "parse"
+    "parse",
+    "sections"
   ],
   "verb": {
     "toc": false,
@@ -49,9 +55,5 @@
     "reflinks": [
       "verb"
     ]
-  },
-  "dependencies": {
-    "define-property": "^0.2.5",
-    "gfm-code-blocks": "^0.3.0"
   }
 }
