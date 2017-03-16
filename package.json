@@ -10,9 +10,7 @@
   },
   "license": "MIT",
   "files": [
-    "index.js",
-    "LICENSE",
-    "README.md"
+    "index.js"
   ],
   "main": "index.js",
   "engines": {
@@ -23,11 +21,11 @@
   },
   "dependencies": {
     "define-property": "^0.2.5",
-    "gfm-code-blocks": "^0.3.0"
+    "gfm-code-blocks": "^1.0.0"
   },
   "devDependencies": {
-    "gulp-format-md": "^0.1.10",
-    "mocha": "^3.0.1"
+    "gulp-format-md": "^0.1.11",
+    "mocha": "^3.2.0"
   },
   "keywords": [
     "format",
