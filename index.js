@@ -7,6 +7,7 @@
 
 'use strict';
 
+var sortBy = require('sort-by-value');
 var gfm = require('gfm-code-blocks');
 
 /**
@@ -20,7 +21,7 @@ var gfm = require('gfm-code-blocks');
  *
  * ```js
  * var fs = require('fs');
- * var readme = fs.readFileSync('example/basic.md', 'utf8');
+ * var readme = fs.readFileSync('readme.md', 'utf8');
  * var sections = require('sections');
  * console.log(sections.parse(readme));
  * ```
@@ -30,12 +31,12 @@ var gfm = require('gfm-code-blocks');
  * @api public
  */
 
-exports.parse = function parseSections(str, fn) {
+exports.parse = function(str, fn) {
   if (typeof str !== 'string') {
     throw new TypeError('expected a string');
   }
 
-  var sections = str.split(/(?=\n^#)/gm);
+  var sections = str.split(/(?=\n(?:#|<!-- *section:))/);
   var res = { sections: [], result: '', headings: [] };
   var len = sections.length;
   var idx = -1;
@@ -59,10 +60,8 @@ exports.parse = function parseSections(str, fn) {
 
 /**
  * Format sections. By default, if no filter function
- * is passed, this:
- *
- *   - filters out empty sections
- *   - fixes whitespace between sections
+ * is passed, this filters out empty sections fixes
+ * whitespace between sections.
  *
  * @param {String} `str` Markdown string
  * @param {Function} `fn` optional filter function
@@ -70,7 +69,7 @@ exports.parse = function parseSections(str, fn) {
  * @api public
  */
 
-exports.format = function formatSections(str, fn) {
+exports.format = function(str, fn) {
   if (typeof str !== 'string') {
     throw new TypeError('expected a string');
   }
@@ -105,6 +104,64 @@ exports.format = function formatSections(str, fn) {
 };
 
 /**
+ * Sort the sections in a parsed sections object, by the
+ * given `prop` and array of `values`.
+ *
+ * @param {Object} `obj` Object returned from [.parse](#parse)
+ * @param {String|Array} `prop` Defaults to `title`. The property to sort by, or the array of values to sort by.
+ * @param {Array} `values` Array of values to sort by.
+ * @return {Object}
+ * @api public
+ */
+
+exports.sortBy = function(obj, prop, values) {
+  if (Array.isArray(prop)) {
+    values = prop;
+    prop = 'title';
+  }
+
+  var arr = obj.sections.slice();
+  var initial = [];
+
+  if (values[0] === '.') {
+    initial.push(arr.shift());
+  }
+
+  var rest = sortBy(arr, {values: values, prop: prop});
+  obj.sections = initial.concat(rest);
+  return obj;
+};
+
+/**
+ * Renders the array of `sections` from [.parse](#parse).
+ *
+ * ```js
+ * var fs = require('fs');
+ * var readme = fs.readFileSync('readme.md', 'utf8');
+ * var sections = require('sections');
+ * var obj = sections.parse(readme);
+ * var str = sections.render(obj);
+ * console.log(str);
+ * ```
+ * @param {Object} `obj` Sections object returned from [.parse](#parse)
+ * @param {Array} `values` (optional) To sort the array of sections by `title`, pass an array of values to sort by.
+ * @return {String}
+ * @api public
+ */
+
+exports.render = function(obj, arr) {
+  if (Array.isArray(arr)) {
+    obj = sections.sortBy(obj, 'title', arr);
+  }
+
+  var str = '';
+  for (var i = 0; i < obj.sections.length; i++) {
+    str += obj.sections[i].string;
+  }
+  return str;
+};
+
+/**
  * Filter out empty sections
  */
 
@@ -119,11 +176,11 @@ function filter(section, prev, next) {
  * Create a new markdown section at the given position.
  */
 
-function Section(str, count, pos) {
+function Section(input, count, pos) {
+  var str = input.trim();
   this.pos = pos;
   this.count = count;
-  this.string = str;
-  str = str.trim();
+  this.string = input;
   this.heading = getHeading(str);
   this.level = getLevel(this);
   this.title = getTitle(this);
@@ -162,12 +219,11 @@ function extractGfm(str) {
 
 function restoreGfm(file) {
   var map = file.examples;
+  var str = file.contents;
   for (var key in map) {
-    var val = map[key];
-    var re = new RegExp(key, 'g');
-    file.contents = file.contents.replace(re, val.block);
+    str = str.split(key).join(map[key].block);
   }
-  return file.contents;
+  return str;
 }
 
 function condenseBold(str) {
@@ -184,12 +240,20 @@ function getLevel(section) {
 
 function getHeading(str) {
   var next = str.indexOf('\n');
-  if (next === -1) next = str.length;
+  if (next === -1) {
+    next = str.length;
+  }
+
   return str.slice(0, next);
 }
 
 function getTitle(section) {
-  return section.heading.slice(section.level).trim();
+  var title = section.heading.slice(section.level).trim();
+  var match = /^<!-- *section:(.*?) *-->/.exec(title);
+  if (match) {
+    title = match[1].trim();
+  }
+  return title;
 }
 
 function hasBadge(idx, title) {
