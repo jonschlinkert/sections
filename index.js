@@ -151,7 +151,7 @@ exports.sortBy = function(obj, prop, values) {
 
 exports.render = function(obj, arr) {
   if (Array.isArray(arr)) {
-    obj = sections.sortBy(obj, 'title', arr);
+    obj = exports.sortBy(obj, 'title', arr);
   }
 
   var str = '';

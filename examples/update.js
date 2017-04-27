@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var str = fs.readFileSync('fixtures/basic.md', 'utf8');
+var str = fs.readFileSync(path.join(__dirname, '../test/fixtures/basic.md'), 'utf8');
 var sections = require('..');
 var emit = sections.emit;
 
@@ -38,7 +38,7 @@ function update(str, heading, val, placement) {
 }
 
 function isMatch(heading, title, placement) {
-  var re = new RegExp(title, 'i')
+  var re = new RegExp(title, 'i');
   if (re.test(heading)) {
     return placement;
   }
@@ -46,4 +46,4 @@ function isMatch(heading, title, placement) {
 }
 
 var res = update(str, 'Foo', 'a\nb\nc', 'between');
-console.log(res)
+console.log(res);

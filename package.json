@@ -20,11 +20,13 @@
     "test": "mocha"
   },
   "dependencies": {
-    "gfm-code-blocks": "^1.0.0"
+    "gfm-code-blocks": "^1.0.0",
+    "sort-by-value": "^0.1.0"
   },
   "devDependencies": {
-    "gulp-format-md": "^0.1.11",
-    "mocha": "^3.2.0"
+    "gulp-format-md": "^0.1.12",
+    "mocha": "^3.3.0",
+    "write": "^0.3.3"
   },
   "keywords": [
     "format",

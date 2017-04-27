@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var str = fs.readFileSync('readme.md', 'utf8');
+var str = fs.readFileSync(path.join(__dirname, '../readme.md'), 'utf8');
 var sections = require('..');
 
 // var formatted = sections.format(str, function(section, prev, next) {
